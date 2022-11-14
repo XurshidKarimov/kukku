@@ -1,0 +1,54 @@
+@import "nullstyle.scss";
+
+@mixin wh($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+body {
+    @include flex(center, center);
+    height: 100vh;
+}
+
+.imgbox {
+    @include wh(400px, 400px);
+    position: relative;
+
+    & img {
+        @include wh(100%, 100%);
+        z-index: -1;
+    }
+
+    & .on {
+        position: absolute;
+        top: 0;
+        display: flex;
+        @include wh(100%, 100%);
+        z-index: 5;
+        perspective: 800px;
+
+        &:hover .part1 {
+            transform: rotate3d(0, 1, 0, -145deg);
+        }
+
+        &:hover .part2 {
+            transform: rotate3d(0, 1, 0, 145deg);
+        }
+
+    }
+
+    :where(.part1, .part2) {
+        @include wh(50%, 100%);
+        transition: linear .4s;
+        transform-style: preserve-3d;
+        background: crimson;
+    }
+
+    & .part1 {
+        transform-origin: left;
+    }
+
+    & .part2 {
+        transform-origin: right;
+    }
+}
